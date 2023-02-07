@@ -1,6 +1,7 @@
 import {User} from '../models/user';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
+import 'dotenv/config';
 
 import {Request, Response, NextFunction} from 'express';
 
@@ -26,11 +27,11 @@ export const login = async (req: Request, res: Response, next: NextFunction) => 
               email: user.email,
               userId: user._id.toString()
             },
-            'somesupersecretsecret',
+            process.env.JWT_PASSWORD as string,
             { expiresIn: '1d' }
         );
 
-        res.status(200).json({ token: token, user });
+        res.status(200).json({ token, user });
     } catch (err) {
         console.log(err);
     }
@@ -40,14 +41,18 @@ export const signup = async (req: Request, res: Response, next: NextFunction) =>
     const email = req.body.email;
     const password = req.body.password;
     const name = req.body.name;
+    const username = req.body.username;
+    const gender = req.body.gender;
 
     try {
         const hashedPassword = await bcrypt.hash(password, 12);
 
-        const user = new User({
+        const user: User = new User({
             email,
             password: hashedPassword,
-            name
+            name,
+            username,
+            gender
         })
 
         await user.save()

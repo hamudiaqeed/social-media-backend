@@ -2,6 +2,7 @@ import express from 'express';
 import mongoose from 'mongoose';
 import cors from 'cors';
 import {authRoutes} from './routes/authRoutes';
+import {userRoutes} from './routes/userRoutes';
 import {Request, Response, NextFunction} from 'express';
 
 const app = express();
@@ -17,6 +18,7 @@ app.use((req: Request, res: Response, next: NextFunction) => {
 });
 
 app.use('/auth', authRoutes);
+app.use('/feed', userRoutes);
 
 mongoose.connect('mongodb://localhost:27017/social-media-backend')
     .then(() => app.listen(8080))

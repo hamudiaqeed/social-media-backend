@@ -8,4 +8,6 @@ router.put('/signup', signup);
 
 router.post('/login', login);
 
+//logout
+
 export {router as authRoutes}

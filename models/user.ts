@@ -1,13 +1,18 @@
 import mongoose, {Types} from 'mongoose';
+const Schema = mongoose.Schema;
 
 interface User extends mongoose.Document {
     email: string,
     password: string,
     name: string,
-    // posts: Types.ObjectId
-}
+    username: string,
+    gender: string,
+    address?: string,
+    description?: string
+    friends?: Types.ObjectId
+} 
 
-const userSchema = new mongoose.Schema({
+const userSchema = new Schema({
     email: {
         type: String,
         required: true
@@ -19,7 +24,27 @@ const userSchema = new mongoose.Schema({
     name: {
         type: String,
         required: true
-    }
+    },
+    username: {
+        type: String,
+        required: true
+    },
+    gender: {
+        type: String,
+        required: true
+    },
+    address: {
+        type: String,
+        default: ''
+    },
+    description: {
+        type: String,
+        default: ''
+    },
+    friends: [{
+        type: Schema.Types.ObjectId, 
+        ref: 'User'
+    }],
 }, {timestamps: true});
 
 const User = mongoose.model<User>('User', userSchema);
