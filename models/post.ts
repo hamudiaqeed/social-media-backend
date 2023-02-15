@@ -43,6 +43,6 @@ const postSchema = new Schema({
     }
 }, {timestamps: true});
 
-const Post = mongoose.model<Post>('Post', postSchema);
+const Post = mongoose.model<Post & mongoose.Schema>('Post', postSchema);
 
 export {Post}

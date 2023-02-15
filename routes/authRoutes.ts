@@ -8,6 +8,10 @@ router.put('/signup', signup);
 
 router.post('/login', login);
 
-//logout
+//logout 
+
+//change password
+
+//generate access token 
 
 export {router as authRoutes}

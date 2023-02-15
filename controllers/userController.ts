@@ -14,23 +14,3 @@ export const getPosts = async (req: any, res: Response, next: NextFunction) => {
         console.log(error);
     }
 }
-
-export const createPost = async (req: any, res: Response, next: NextFunction) => {
-    const post = req.body.post;
-    const username = req.user.username;
-
-    try {
-        const newPost = new Post({
-            body: post,
-            username,
-            user: req.user
-        })
-        await newPost.save();
-        return res.status(200).json({
-            message: 'Post created',
-            newPost
-        })
-    } catch (error) {
-        console.log(error)
-    }
-}
